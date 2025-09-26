@@ -2,19 +2,48 @@ public Class Combatientes{
     private String nombre;
     private int PV;
     private int PA;
+    private boolean inhabilitado;
+    private int aumentoAtaque;
+    private int escudoActivo;
+    private boolean turnoExtra;
 
-    public Combatientes(String nombre, int PV, int PA) {
+    public Combatientes(String nombre){
         this.nombre = nombre;
-        this.PV = PV;
-        this.PA = PA;
+        this.PV = 100;
+        this.PA = 20;
+        this.inhabilitado = false;
+        this.aumentoAtaque = 0;
+        this.escudoActivo = 0;
+        this.turnoExtra = false;
     }
-    public String getNombre() {
+
+    public String getNombre(){
         return nombre;
     }
-    public int getPV() {
+    public int getPV(){
         return PV;
     }
-    public int getPA() {
+    public int getPA(){
         return PA;
+    }
+    public boolean isInhabilitado(){
+        return inhabilitado;
+    }
+    public void setInhabilitado(boolean inhabilitado){
+        this.inhabilitado = inhabilitado;
+    }
+    public boolean tieneTurnoExtra(){
+        return turnoExtra;
+    }
+    public void otorgarTurnoExtra(){
+        this.turnoExtra = true;
+    }
+    public void usarTurnoExtra(){
+        this.turnoExtra = false;
+    }
+    public void recibirDano(int dano){
+        if (escudoActivo > 0){
+           int danoReducido = Math.max(dano - escudoActivo, 0);
+        }
     }
 }
