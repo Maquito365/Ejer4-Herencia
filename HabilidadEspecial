@@ -2,11 +2,13 @@ public class HabilidadEspecial{
     private String nombre;
     private String efecto;
     private int valor;
+    private int duracion;
 
     public HabilidadEspecial(String nombre, String efecto, int valor) {
         this.nombre = nombre;
         this.efecto = efecto;
         this.valor = valor;
+        this.duracion = duracion;
     }
 
     public String getNombre() {
@@ -18,5 +20,35 @@ public class HabilidadEspecial{
     public int getValor() {
         return valor;
     }
-    
+    public int getDuracion() {
+        return duracion;
+    }
+    public void aplicarHabilidad(Combatiente objetivo){
+        switch(efecto.toLowerCase()){
+            case "envenenar":
+                objetivo.recibiridaño(valor);
+                System.out.println(objetivo.getNombre() + " ha sido envenenado y recibe " + valor + " de daño.");
+                break;
+            case "inhabilitar":
+                objetivo.setInhabilitado(true);
+                System.out.println(objetivo.getNombre() + " ha sido inhabilitado por " + duracion + " turnos.");
+                break;
+            case "AumentoAtq":
+                objetivo.setAumentoAtq(valor);
+                System.out.println(objetivo.getNombre() + " ha aumentado su ataque en " + valor + " puntos.");
+                break;
+            default:
+                System.out.println("Habilidad no existente");
+        }   
+    }
+    public void dañoMultiple(Combatientes [] objetivos){
+        if(efecto.equalsIgnoreCase("daño multiple")){
+            for(Combatiente objetivo : objetivos){
+                objetivo.recibiridaño(valor);
+                System.out.println(objetivo.getNombre() + " recibe " + valor + " de daño.");
+            }
+        } else {
+            System.out.println("Esta habilidad no es de daño múltiple");
+        }
+    }
 }
