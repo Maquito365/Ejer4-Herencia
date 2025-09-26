@@ -18,4 +18,27 @@ public class Items{
     public int getValor() {
         return valor;
     }
+
+    public void usar(Combatientes objetivo){
+        switch (efecto.toLowerCase()){
+            case "curar":
+                objetivo.recibirDano(-valor);
+                System.out.println(objetivo.getNombre() + " ha sido curado por " + valor + " puntos.");
+                break;
+            case "aumentoatq":
+                objetivo.aplicarAumentoAtaque(valor);
+                System.out.println(objetivo.getNombre() + " ha aumentado su ataque en " + valor + " puntos.");
+                break;
+            case "escudo":
+                objetivo.activarEscudo(valor);
+                System.out.println(objetivo.getNombre() + " ha aumentado su defensa en " + valor + " puntos.");
+                break;
+            case: "turnoExtra":
+                objetivo.otorgarTurnoExtra();
+                System.out.println(objetivo.getNombre() + " ha ganado un turno extra.");
+                break;
+            default:
+                System.out.println("Efecto desconocido.");
+        }
+    }
 }

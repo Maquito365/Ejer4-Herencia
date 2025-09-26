@@ -26,7 +26,7 @@ public class HabilidadEspecial{
     public void aplicarHabilidad(Combatiente objetivo){
         switch(efecto.toLowerCase()){
             case "envenenar":
-                objetivo.recibiridaño(valor);
+                objetivo.recibiriDano(valor);
                 System.out.println(objetivo.getNombre() + " ha sido envenenado y recibe " + valor + " de daño.");
                 break;
             case "inhabilitar":
@@ -34,14 +34,14 @@ public class HabilidadEspecial{
                 System.out.println(objetivo.getNombre() + " ha sido inhabilitado por " + duracion + " turnos.");
                 break;
             case "AumentoAtq":
-                objetivo.setAumentoAtq(valor);
+                objetivo.aplicarAumentoAtaque(valor);
                 System.out.println(objetivo.getNombre() + " ha aumentado su ataque en " + valor + " puntos.");
                 break;
             default:
                 System.out.println("Habilidad no existente");
         }   
     }
-    public void dañoMultiple(Combatientes [] objetivos){
+    public void aplicarHabilidadMultiple(Combatientes [] objetivos){
         if(efecto.equalsIgnoreCase("daño multiple")){
             for(Combatiente objetivo : objetivos){
                 objetivo.recibiridaño(valor);
