@@ -2,4 +2,19 @@ public Class Combatientes{
     private String nombre;
     private int PV;
     private int PA;
+
+    public Combatientes(String nombre, int PV, int PA) {
+        this.nombre = nombre;
+        this.PV = PV;
+        this.PA = PA;
+    }
+    public String getNombre() {
+        return nombre;
+    }
+    public int getPV() {
+        return PV;
+    }
+    public int getPA() {
+        return PA;
+    }
 }

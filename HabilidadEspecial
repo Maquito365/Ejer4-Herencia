@@ -1,3 +1,22 @@
 public class HabilidadEspecial{
+    private String nombre;
+    private String efecto;
+    private int valor;
+
+    public HabilidadEspecial(String nombre, String efecto, int valor) {
+        this.nombre = nombre;
+        this.efecto = efecto;
+        this.valor = valor;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+    public String getEfecto() {
+        return efecto;
+    }
+    public int getValor() {
+        return valor;
+    }
     
 }
