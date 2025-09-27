@@ -18,7 +18,7 @@ public class Items{
     public int getValor() {
         return valor;
     }
-
+    //Este método ayuda a usar el item en el combatiente que el usuario elija
     public void usar(Combatientes objetivo){
         switch (efecto.toLowerCase()){
             case "curar":

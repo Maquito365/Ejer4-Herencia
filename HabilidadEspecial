@@ -23,6 +23,7 @@ public class HabilidadEspecial{
     public int getDuracion() {
         return duracion;
     }
+    //Método de los enemigos para aplicar efectos a los jugadores
     public void aplicarHabilidad(Combatiente objetivo){
         switch(efecto.toLowerCase()){
             case "envenenar":
@@ -41,6 +42,7 @@ public class HabilidadEspecial{
                 System.out.println("Habilidad no existente");
         }   
     }
+    //Otro tipo de habilidad para aplicar a múltiples objetivos
     public void aplicarHabilidadMultiple(Combatientes [] objetivos){
         if(efecto.equalsIgnoreCase("daño multiple")){
             for(Combatiente objetivo : objetivos){
