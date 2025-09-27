@@ -24,7 +24,7 @@ public Class Combatientes{
         return PV;
     }
     public int getPA(){
-        return PA;
+        return PA + aumentoAtaque;
     }
     public boolean isInhabilitado(){
         return inhabilitado;
@@ -41,9 +41,34 @@ public Class Combatientes{
     public void usarTurnoExtra(){
         this.turnoExtra = false;
     }
+    // Ayuda a ver cuanto daño recibe el combatiente, reduciendo los puntos de vida del mismo
     public void recibirDano(int dano){
         if (escudoActivo > 0){
-           int danoReducido = Math.max(dano - escudoActivo, 0);
+           int danoReducido = Math.max(dano - escudoActivo, 0);// Math max ayuda a que el daño no sea negativo osea regresa el mayor entre los dos
+           escudoActivo = 0;
+           this.PV -= danoReducido;
+           System.out.println(nombre + " ha recibido " + danoReducido + " tras la activación de su escudo " + PV);
+        }else{
+            this.PV -= dano; // Resta el daño directamente a los puntos de vida
+            System.out.println(nombre + " ha recibido " + dano + " de daño. PV restantes: " + PV);
         }
+        if (this.PV < 0) this.PV = 0; 
+    }
+    //Método de aumento de ataque 
+    public void aplicarAumentoAtaque(int valor){
+        this.aumentoAtaque += valor;
+        System.out.println(nombre + " ha aumentado su ataque en " + valor + ". PA actual: " + getPA());
+    }
+
+    public void resetearAumentoAtaque(){
+        this.aumentoAtaque =0; // resetea el aumento de ataque a 0, osea no tiene un aumento dle mismo
+    }
+    //activa el escudo del combatiente
+    public void activarEscudo(int valor){
+        this.escudoActivo = valor;
+    }
+
+    public void estaVivo(){
+        return PV > 0;
     }
 }
