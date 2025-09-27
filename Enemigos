@@ -1,3 +1,27 @@
 public class Enemigos extends Combatientes{
-    
+    private String tipo;
+    private HabilidadEspecial habilidadEspecial;
+    private HabilidadEspecial habilidadJefe;
+
+    public Enemigos(String nombre, String tipo, HabilidadEspecial habilidadEspecial, HabilidadEspecial habilidadJefe) {
+        super(nombre); // super sirve para llamar al constructor de la clase padre (Combatientes)
+        this.tipo=tipo;
+        this.habilidadEspecial=habilidadEspecial;
+        this.habilidadJefe=habilidadJefe;
+    }
+    //El enemigo usa su habilidad especial en un combatiente objetivo
+    public void usarHabilidadEspecial(Combatiente objetivo){
+        System.out.println(getNombre() + " usa su habilidad especial: " + habilidadEspecial.getNombre() + " sobre " + objetivo.getNombre());
+        habilidadEspecial.aplicarHabilidad(objetivo);
+    }
+    //El enemigo usa su 2da habilidad (si es jefe) en su obetjivo
+    public void usarHabilidadJefe(CombatienteS [] objetivos){
+        if(habilidadJefe != null){//Ayuda a ver si el enemigo es un jefe
+        System.out.println(getNombre() + " usa su habilidad de jefe: " + habilidadJefe.getNombre() + " sobre todos los jugadores.");
+        habilidadJefe.aplicarHabilidadMultiple(objetivos);
+        }
+    }
+    public String getTipo() {
+        return tipo;
+    }
 }

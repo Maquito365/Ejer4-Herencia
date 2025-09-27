@@ -1,5 +1,44 @@
 import java.util.List;
 import java.util.ArrayList;
 public class Jugador extends Combatientes{
-    List<Items> inventario;
+    private List<Items> inventario;
+    private String rol;
+
+    public Jugador(String nombre, String rol){
+        super(nombre);
+        this.rol = rol;
+        this.invetario= new ArrayList<>();
+        inicializarInventario();
+    }
+
+    //Inicializa el inventario con items básicos segun el rol del jugador
+    private void inicializarInventario(){
+        if(rol.equalsIgnoreCase("Guerrero")){
+            inventario.add(new Items("Aumento de Ataque", "aumentoATQ", 10));
+            inventario.add(new Items("Turno Extra", "turnoExtra", 0));
+        }else if(rol.equalsIgnoreCase("Explorador")){
+            inventario.add(new Items ("Curacion", "curar", 20));
+            inventario.add(new Items("Escudo", "escudo", 15));
+            inventario.add(new Items("Aumento de Ataque Global", "aumentoATQ", 5));
+        }
+    }
+
+    //Permite que se use un ítem del inventario
+    public void usarItem(String nombreItem, Combatientes objetivo){
+        for(Items item : inventario){
+            if(item.getNombre().equalsIgnoreCase(nombreItem)){
+                item.usar(objetivo);
+                inventario.remove(item);
+                return;
+            }
+        }
+        System.out.println("Item no encontrado en el inventario.");
+    }
+
+    public void mostrarInventario(){
+        System.out.println("Inventario: ");
+        for(Items item : inventario){
+            System.out.println("- " + item.getNombre()+" (Efecto: " + item.getEfecto() + ", Valor: " + item.getValor() + ")");
+        }
+    }
 }
