@@ -24,4 +24,13 @@ public class Enemigos extends Combatientes{
     public String getTipo() {
         return tipo;
     }
+
+    @Override
+    public String toString() {
+        return "Enemigo{" +
+                "nombre='" + getNombre() + '\'' +
+                ", tipo='" + tipo + '\'' +
+                ", PV=" + getPV() +
+                ", PA=" + getPA() +
+                '}';
 }

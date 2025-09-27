@@ -41,4 +41,13 @@ public class Items{
                 System.out.println("Efecto desconocido.");
         }
     }
+    // Método toString para representar el objeto como una cadena
+    @Override
+    public String toString(){
+        return "Items{" +
+                "nombre='" + nombre + '\'' +
+                ", efecto='" + efecto + '\'' +
+                ", valor=" + valor +
+                '}';
+    }
 }

@@ -53,4 +53,14 @@ public class HabilidadEspecial{
             System.out.println("Esta habilidad no es de daño múltiple");
         }
     }
+    // Método toString para representar el objeto como una cadena
+    @Override
+    public String toString(){
+        return "HabilidadEspecial{" +
+                "nombre='" + nombre + '\'' +
+                ", efecto='" + efecto + '\'' +
+                ", valor=" + valor +
+                ", duracion=" + duracion +
+                '}';
+    }
 }

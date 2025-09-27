@@ -71,4 +71,21 @@ public Class Combatientes{
     public void estaVivo(){
         return PV > 0;
     }
+    // Muestra el estado actual del combatiente
+    @Override
+    public String toString() {
+        return "Combatiente{" +
+                "nombre='" + nombre + '\'' +
+                ", PV=" + PV +
+                ", PA=" + PA +
+                '}';
+    }
+    // Método equals para comparar dos objetos Combatientes
+    @Override
+    public boolean equals(Object obj){
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Combatientes that = (Combatientes) obj; // Convierte el objeto a Combatientes
+        return PV == that.PV && PA == that.PA && nombre.equals(that.nombre);// Compara los atributos para determinar si son iguales
+    }
 }

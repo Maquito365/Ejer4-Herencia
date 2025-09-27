@@ -41,4 +41,14 @@ public class Jugador extends Combatientes{
             System.out.println("- " + item.getNombre()+" (Efecto: " + item.getEfecto() + ", Valor: " + item.getValor() + ")");
         }
     }
+    // Método toString para representar el objeto como una cadena
+    @Override
+    public String toString(){
+        return "Jugador{" +
+                "nombre='" + getNombre() + '\'' +
+                ", rol='" + rol + '\'' +
+                ", PV=" + getPV() +
+                ", PA=" + getPA() +
+                '}';
+    }
 }

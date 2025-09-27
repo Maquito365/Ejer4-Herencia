@@ -1,3 +1,9 @@
 public class Batalla{
-    
+    private Jugador jugador;
+    private ArrayList<Enemigo> enemigos;
+
+    public Batalla(Jugador jugador, ArrayList<Enemigo> enemigos){
+        this.jugador = jugador;
+        this.enemigos = enemigos;
+    }
 }
