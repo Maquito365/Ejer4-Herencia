@@ -33,7 +33,7 @@ public class Items{
                 objetivo.activarEscudo(valor);
                 System.out.println(objetivo.getNombre() + " ha aumentado su defensa en " + valor + " puntos.");
                 break;
-            case: "turnoExtra":
+            case "turnoExtra":
                 objetivo.otorgarTurnoExtra();
                 System.out.println(objetivo.getNombre() + " ha ganado un turno extra.");
                 break;

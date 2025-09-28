@@ -33,4 +33,5 @@ public class Enemigos extends Combatientes{
                 ", PV=" + getPV() +
                 ", PA=" + getPA() +
                 '}';
+    }
 }
