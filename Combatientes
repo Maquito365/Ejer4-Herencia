@@ -68,8 +68,8 @@ public class Combatientes{
         this.escudoActivo = valor;
     }
 
-    public void estaVivo(){
-        return PV > 0;
+    public boolean estaVivo() {
+    return PV > 0;
     }
     // Muestra el estado actual del combatiente
     @Override
