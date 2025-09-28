@@ -2,9 +2,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 public class Batalla{
     private Jugador jugador;
-    private ArrayList<Enemigo> enemigos;
+    private ArrayList<Enemigos> enemigos;
 
-    public Batalla(Jugador jugador, ArrayList<Enemigo> enemigos){
+    public Batalla(Jugador jugador, ArrayList<Enemigos> enemigos){
         this.jugador = jugador;
         this.enemigos = enemigos;
     }
@@ -14,7 +14,7 @@ public class Batalla{
         Scanner scanner = new Scanner(System.in);
         System.out.println("Inicio del combate!");
         jugador.mensajeInicioBatalla();
-        for(Enemigo enemigo : enemigos){//Itera sobre cada enemigo en la lista de enemigos
+        for(Enemigos enemigo : enemigos){//Itera sobre cada enemigo en la lista de enemigos
             enemigo.mensajeInicioBatalla();
         }
 
@@ -51,7 +51,7 @@ public class Batalla{
                 System.out.println(jugador.getNombre()+ "Esta inhabilitado y no puede actuar este turno.");
                 jugador.setInhabilitado(false); //El jugador recupera la capacidad de actuar en el siguiente turno
             }
-            for(Enemigo enemigo : enemigos){
+            for(Enemigos enemigo : enemigos){
                 if(enemigo.estaVivo()){
                     enemigo.usarHabilidadEspecial(jugador);//El enemigo usa su habilidad especial si está vivo
                 }
@@ -59,7 +59,7 @@ public class Batalla{
 
             System.out.println("\nEstado actual:");
             System.out.println(jugador.getNombre() + " (PV: " + jugador.getPV() + ")");
-            for(Enemigo enemigo : enemigos){
+            for(Enemigos enemigo : enemigos){
                 System.out.println(enemigo.getNombre() + " (PV: " + enemigo.getPV() + ")");
             }
 

@@ -4,7 +4,7 @@ public class HabilidadEspecial{
     private int valor;
     private int duracion;
 
-    public HabilidadEspecial(String nombre, String efecto, int valor) {
+    public HabilidadEspecial(String nombre, String efecto, int valor, int duracion){
         this.nombre = nombre;
         this.efecto = efecto;
         this.valor = valor;
@@ -24,17 +24,17 @@ public class HabilidadEspecial{
         return duracion;
     }
     //Método de los enemigos para aplicar efectos a los jugadores
-    public void aplicarHabilidad(Combatiente objetivo){
+    public void aplicarHabilidad(Combatientes objetivo){
         switch(efecto.toLowerCase()){
             case "envenenar":
-                objetivo.recibiriDano(valor);
+                objetivo.recibirDano(valor);
                 System.out.println(objetivo.getNombre() + " ha sido envenenado y recibe " + valor + " de daño.");
                 break;
             case "inhabilitar":
                 objetivo.setInhabilitado(true);
                 System.out.println(objetivo.getNombre() + " ha sido inhabilitado por " + duracion + " turnos.");
                 break;
-            case "AumentoAtq":
+            case "aumentoatq":
                 objetivo.aplicarAumentoAtaque(valor);
                 System.out.println(objetivo.getNombre() + " ha aumentado su ataque en " + valor + " puntos.");
                 break;
@@ -44,9 +44,9 @@ public class HabilidadEspecial{
     }
     //Otro tipo de habilidad para aplicar a múltiples objetivos
     public void aplicarHabilidadMultiple(Combatientes [] objetivos){
-        if(efecto.equalsIgnoreCase("daño multiple")){
+        if(efecto.equalsIgnoreCase("dañarMultiple")){
             for(Combatiente objetivo : objetivos){
-                objetivo.recibiridaño(valor);
+                objetivo.recibiriDano(valor);
                 System.out.println(objetivo.getNombre() + " recibe " + valor + " de daño.");
             }
         } else {

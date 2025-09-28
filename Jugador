@@ -7,8 +7,11 @@ public class Jugador extends Combatientes{
     public Jugador(String nombre, String rol){
         super(nombre);
         this.rol = rol;
-        this.invetario= new ArrayList<>();
+        this.inventario= new ArrayList<>();
         inicializarInventario();
+    }
+    public void mensajeInicioBatalla() {
+        System.out.println(getNombre() + " está listo para la batalla!");
     }
 
     //Inicializa el inventario con items básicos segun el rol del jugador

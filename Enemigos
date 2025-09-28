@@ -10,12 +10,12 @@ public class Enemigos extends Combatientes{
         this.habilidadJefe=habilidadJefe;
     }
     //El enemigo usa su habilidad especial en un combatiente objetivo
-    public void usarHabilidadEspecial(Combatiente objetivo){
+    public void usarHabilidadEspecial(Combatientes objetivo){
         System.out.println(getNombre() + " usa su habilidad especial: " + habilidadEspecial.getNombre() + " sobre " + objetivo.getNombre());
         habilidadEspecial.aplicarHabilidad(objetivo);
     }
     //El enemigo usa su 2da habilidad (si es jefe) en su obetjivo
-    public void usarHabilidadJefe(CombatienteS [] objetivos){
+    public void usarHabilidadJefe(Combatientes [] objetivos){
         if(habilidadJefe != null){//Ayuda a ver si el enemigo es un jefe
         System.out.println(getNombre() + " usa su habilidad de jefe: " + habilidadJefe.getNombre() + " sobre todos los jugadores.");
         habilidadJefe.aplicarHabilidadMultiple(objetivos);
