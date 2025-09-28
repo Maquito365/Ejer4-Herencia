@@ -6,4 +6,66 @@ public class Batalla{
         this.jugador = jugador;
         this.enemigos = enemigos;
     }
+
+    //Ayuda a iniciar la batalla y manejar su desarrollo
+    public void iniciarBatalla(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Inicio del combate!");
+        jugador.mensajeInicioBatalla();
+        for(Enemigo enemigo : enemigos){//Itera sobre cada enemigo en la lista de enemigos
+            enemigo.mensajeInicioBatalla();
+        }
+
+        while (jugador.estaVivo() && enemigos.stream().anyMatch(Enemigo:: estaVivo)){ //stream().anyMatch sirve para verificar si al menos un enemigo sigue vivo
+            if(!jugador.isInhabilitado()){
+                System.out.println("\nTurno del jugador: ");
+                System.out.println("1. Atacar");
+                System.out.println("2. Usar item");
+                System.out.println("3. Pasar turno");
+                System.out.print("Elige una accion: ");
+                int opcion = scanner.nextInt();
+
+                switch(opcion){
+                    case 1:
+                        System.out.println("Elige un enemigo para atacar:");
+                        for(int i = 0; i < enemigos.size(); i++){ //Muestra la lista de enemigos
+                            System.out.println((i+1) + ". " + enemigos.get(i).getNombre() + " (PV: " + enemigos.get(i).getPV() + ")");
+                        }
+                        int enemigoElegido = scanner.nextInt() - 1;//Resta 1 para ajustar el índice
+                        jugador.atacar(enemigos.get(enemigoElegido));//Ataca al enemigo elegido
+                        break;
+                    case 2:
+                        jugador.mostrarInventario();
+                        System.out.print("Elige un item para usar: ");
+                        String item = scanner.next();
+                        jugador.usarItem(item,jugador);//Usa el item elegido
+                        break;
+                    case 3:
+                        System.out.println("Turno pasado.");
+                        break;
+                }
+
+            }else{
+                System.out.println(jugador.getNombre()+ "Esta inhabilitado y no puede actuar este turno.");
+                jugador.setInhabilitado(false); //El jugador recupera la capacidad de actuar en el siguiente turno
+            }
+            for(Enemigo enemigo : enemigos){
+                if(enemigo.estaVivo()){
+                    enemigo.usarHabilidadEspecial(jugador);//El enemigo usa su habilidad especial si está vivo
+                }
+            }
+
+            System.out.println("\nEstado actual:");
+            System.out.println(jugador.getNombre() + " (PV: " + jugador.getPV() + ")");
+            for(Enemigo enemigo : enemigos){
+                System.out.println(enemigo.getNombre() + " (PV: " + enemigo.getPV() + ")");
+            }
+
+        }
+        if(jugador.estaVivo()){
+            System.out.println("¡Has ganado la batalla!");
+        }else{
+            System.out.println("Has sido derrotado...");
+        }
+    }
 }
