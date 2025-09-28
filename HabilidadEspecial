@@ -45,7 +45,7 @@ public class HabilidadEspecial{
     //Otro tipo de habilidad para aplicar a múltiples objetivos
     public void aplicarHabilidadMultiple(Combatientes [] objetivos){
         if(efecto.equalsIgnoreCase("dañarMultiple")){
-            for(Combatiente objetivo : objetivos){
+            for(Combatientes objetivo : objetivos){
                 objetivo.recibiriDano(valor);
                 System.out.println(objetivo.getNombre() + " recibe " + valor + " de daño.");
             }

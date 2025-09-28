@@ -5,17 +5,17 @@ public class MainEjer4{
         Jugador guerrero = new Jugador("Guerrero", "Guerrero");
         Jugador explorador = new Jugador("Explorador", "Explorador");
         //Crear enemigos
-        ArrayList<Enemigo> enemigos = new ArrayList<>();
+        ArrayList<Enemigos> enemigos = new ArrayList<>();
 
         HabilidadEspecial atrapar = new HabilidadEspecial("Atrapar", "inhabilitar", 0, 1); // Habilidad especial para el enemigo
         HabilidadEspecial envenenar = new HabilidadEspecial("Envenenar", "envenenar", 15, 3); 
-        enemigos.add(new Enemigo("Rerir (normal)", "Fuego", atrapar, null));//Asigna habilidad especial al enemigo
-        enemigos.add(new Enemigo("Rerir (Jefe)", "Fuego", atrapar, envenenar));
+        enemigos.add(new Enemigos("Rerir (normal)", "Fuego", atrapar, null));//Asigna habilidad especial al enemigo
+        enemigos.add(new Enemigos("Rerir (Jefe)", "Fuego", atrapar, envenenar));
 
         HabilidadEspecial aumentarAtaque = new HabilidadEspecial("Aumentar Ataque", "aumentarataque", 10, 0);
         HabilidadEspecial danarMultiple = new HabilidadEspecial("Dañar Múltiples", "dañarMultiple", 20, 0);
-        enemigos.add(new Enemigo("Surtalogi (normal)", "Cuantico", aumentarAtaque, null));
-        enemigos.add(new Enemigo("Surtalogi (Jefe)", "Cuántico", aumentarAtaque, danarMultiple));
+        enemigos.add(new Enemigos("Surtalogi (normal)", "Cuantico", aumentarAtaque, null));
+        enemigos.add(new Enemigos("Surtalogi (Jefe)", "Cuántico", aumentarAtaque, danarMultiple));
 
         //Muestra inventarios de los jugadores
         System.out.println("Inventario del Guerrero: ");
@@ -24,7 +24,7 @@ public class MainEjer4{
         explorador.mostrarInventario();
 
         System.out.println("\nEnemigos en la batalla");
-        for (Enemigo enemigo : enemigos){
+        for (Enemigos enemigo : enemigos){
             System.out.println("- " + enemigo.getNombre() + " (Tipo: " + enemigo.getTipo() + ")");
 
         }

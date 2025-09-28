@@ -1,6 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
-public class Jugador extends Combatientes{
+public class Jugador extends Combatientes {
     private List<Items> inventario;
     private String rol;
 
@@ -36,6 +36,10 @@ public class Jugador extends Combatientes{
             }
         }
         System.out.println("Item no encontrado en el inventario.");
+    }
+    public void atacar(Enemigos enemigo) { 
+        enemigo.recibirDano(getPA());
+        System.out.println(getNombre() + " ha atacado a " + enemigo.getNombre() + " causando " + getPA() + " puntos de daño.");
     }
 
     public void mostrarInventario(){
