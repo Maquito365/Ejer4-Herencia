@@ -9,6 +9,9 @@ public class Enemigos extends Combatientes{
         this.habilidadEspecial=habilidadEspecial;
         this.habilidadJefe=habilidadJefe;
     }
+    public void mensajeInicioBatalla() {
+        System.out.println(getNombre() + " está listo para la batalla!");
+    }
     //El enemigo usa su habilidad especial en un combatiente objetivo
     public void usarHabilidadEspecial(Combatientes objetivo){
         System.out.println(getNombre() + " usa su habilidad especial: " + habilidadEspecial.getNombre() + " sobre " + objetivo.getNombre());

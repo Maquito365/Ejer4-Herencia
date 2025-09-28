@@ -18,7 +18,7 @@ public class Batalla{
             enemigo.mensajeInicioBatalla();
         }
 
-        while (jugador.estaVivo() && enemigos.stream().anyMatch(Enemigo:: estaVivo)){ //stream().anyMatch sirve para verificar si al menos un enemigo sigue vivo
+        while (jugador.estaVivo() && enemigos.stream().anyMatch(Enemigos:: estaVivo)){ //stream().anyMatch sirve para verificar si al menos un enemigo sigue vivo
             if(!jugador.isInhabilitado()){
                 System.out.println("\nTurno del jugador: ");
                 System.out.println("1. Atacar");
