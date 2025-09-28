@@ -46,7 +46,7 @@ public class HabilidadEspecial{
     public void aplicarHabilidadMultiple(Combatientes [] objetivos){
         if(efecto.equalsIgnoreCase("dañarMultiple")){
             for(Combatientes objetivo : objetivos){
-                objetivo.recibiriDano(valor);
+                objetivo.recibirDano(valor);
                 System.out.println(objetivo.getNombre() + " recibe " + valor + " de daño.");
             }
         } else {
