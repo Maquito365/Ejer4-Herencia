@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+
 public class Batalla{
     private Jugador jugador;
     private ArrayList<Enemigos> enemigos;
@@ -12,64 +13,98 @@ public class Batalla{
     //Ayuda a iniciar la batalla y manejar su desarrollo
     public void iniciarBatalla(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Inicio del combate!");
+        System.out.println("¡Inicio del combate!");
         jugador.mensajeInicioBatalla();
-        for(Enemigos enemigo : enemigos){//Itera sobre cada enemigo en la lista de enemigos
+        for(Enemigos enemigo : enemigos){
             enemigo.mensajeInicioBatalla();
         }
 
-        while (jugador.estaVivo() && enemigos.stream().anyMatch(Enemigos:: estaVivo)){ //stream().anyMatch sirve para verificar si al menos un enemigo sigue vivo
+        while (jugador.estaVivo() && enemigos.stream().anyMatch(Enemigos::estaVivo)) {
             if(!jugador.isInhabilitado()){
                 System.out.println("\nTurno del jugador: ");
                 System.out.println("1. Atacar");
                 System.out.println("2. Usar item");
                 System.out.println("3. Pasar turno");
-                System.out.print("Elige una accion: ");
-                int opcion = scanner.nextInt();
+                System.out.print("Elige una acción: ");
+
+                int opcion;
+                while (true) {
+                    if (scanner.hasNextInt()) {
+                        opcion = scanner.nextInt();
+                        scanner.nextLine(); 
+                        break;
+                    } else {
+                        System.out.print("Ingresa un número válido (1-3): ");
+                        scanner.nextLine();
+                    }
+                }
 
                 switch(opcion){
                     case 1:
                         System.out.println("Elige un enemigo para atacar:");
-                        for(int i = 0; i < enemigos.size(); i++){ //Muestra la lista de enemigos
-                            System.out.println((i+1) + ". " + enemigos.get(i).getNombre() + " (PV: " + enemigos.get(i).getPV() + ")");
+                        for(int i = 0; i < enemigos.size(); i++){
+                            Enemigos e = enemigos.get(i);
+                            if (e.estaVivo())
+                                System.out.println((i+1) + ". " + e.getNombre() + " (PV: " + e.getPV() + ")");
                         }
-                        int enemigoElegido = scanner.nextInt() - 1;//Resta 1 para ajustar el índice
-                        jugador.atacar(enemigos.get(enemigoElegido));//Ataca al enemigo elegido
+                        int enemigoElegido = -1;
+                        while (enemigoElegido < 0 || enemigoElegido >= enemigos.size() || !enemigos.get(enemigoElegido).estaVivo()){
+                            System.out.print("Número de enemigo: ");
+                            if (scanner.hasNextInt()){
+                                int idx = scanner.nextInt() - 1;
+                                scanner.nextLine();
+                                if (idx >= 0 && idx < enemigos.size() && enemigos.get(idx).estaVivo()){
+                                    enemigoElegido = idx;
+                                } else {
+                                    System.out.println("Índice inválido o enemigo no disponible.");
+                                }
+                            } else {
+                                System.out.println("Ingresa un número.");
+                                scanner.nextLine();
+                            }
+                        }
+                        jugador.atacar(enemigos.get(enemigoElegido));
                         break;
+
                     case 2:
                         jugador.mostrarInventario();
-                        System.out.print("Elige un item para usar: ");
-                        scanner.nextLine();
-                        String item = scanner.nextLine();
-                        jugador.usarItem(item,jugador);//Usa el item elegido
+                        System.out.print("Elige un item para usar (escribe el nombre exacto): ");
+                        String item = scanner.nextLine(); 
+                        jugador.usarItem(item, jugador);
                         break;
+
                     case 3:
                         System.out.println("Turno pasado.");
                         break;
+
+                    default:
+                        System.out.println("Opción inválida. Pierdes el turno.");
                 }
 
-            }else{
-                System.out.println(jugador.getNombre()+ "Esta inhabilitado y no puede actuar este turno.");
-                jugador.setInhabilitado(false); //El jugador recupera la capacidad de actuar en el siguiente turno
+            } else {
+                System.out.println(jugador.getNombre()+ " está inhabilitado y no puede actuar este turno.");
             }
+
             for(Enemigos enemigo : enemigos){
                 if(enemigo.estaVivo()){
-                    enemigo.usarHabilidadEspecial(jugador);//El enemigo usa su habilidad especial si está vivo
+                    enemigo.actuar(jugador);
                 }
             }
-            System.out.println("Presiona ENTER para continuar...");
-            scanner.nextLine(); 
-            scanner.nextLine();
+
+            jugador.avanzarEstadosDeTurno();
+            for (Enemigos e : enemigos) e.avanzarEstadosDeTurno();
 
             System.out.println("\nEstado actual:");
             System.out.println(jugador.getNombre() + " (PV: " + jugador.getPV() + ")");
             for(Enemigos enemigo : enemigos){
-                if(enemigo.estaVivo())
+                if (enemigo.estaVivo())
                     System.out.println(enemigo.getNombre() + " (PV: " + enemigo.getPV() + ")");
             }
 
-
+            System.out.println("\nPresiona ENTER para continuar...");
+            scanner.nextLine();
         }
+
         if(jugador.estaVivo()){
             System.out.println("¡Has ganado la batalla!");
         }else{

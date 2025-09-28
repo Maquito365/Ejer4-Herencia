@@ -6,6 +6,9 @@ public class Combatientes{
     private int aumentoAtaque;
     private int escudoActivo;
     private boolean turnoExtra;
+    private int turnosInhabilitado = 0;
+    private int turnosVeneno = 0;
+    private int danoVenenoPorTurno = 0;
 
     public Combatientes(String nombre){
         this.nombre = nombre;
@@ -27,10 +30,15 @@ public class Combatientes{
         return PA + aumentoAtaque;
     }
     public boolean isInhabilitado(){
-        return inhabilitado;
+        return inhabilitado || turnosInhabilitado > 0;
     }
-    public void setInhabilitado(boolean inhabilitado){
+      public void setInhabilitado(boolean inhabilitado){
         this.inhabilitado = inhabilitado;
+    }
+    public void setInhabilitadoPorTurnos(int turnos){
+        // si ya está inhabilitado por más turnos, no reducirlo
+        this.turnosInhabilitado = Math.max(this.turnosInhabilitado, Math.max(0, turnos));
+        this.inhabilitado = false; 
     }
     public boolean tieneTurnoExtra(){
         return turnoExtra;
@@ -43,16 +51,20 @@ public class Combatientes{
     }
     // Ayuda a ver cuanto daño recibe el combatiente, reduciendo los puntos de vida del mismo
     public void recibirDano(int dano){
-        if (escudoActivo > 0){
-           int danoReducido = Math.max(dano - escudoActivo, 0);// Math max ayuda a que el daño no sea negativo osea regresa el mayor entre los dos
+        //si es curación (dano < 0), ignorar escudo para que sí cure
+        if (dano < 0) {
+            this.PV -= dano; // dano negativo suma PV
+            System.out.println(nombre + " ha sido curado por " + (-dano) + ". PV actuales: " + PV);
+        } else if (escudoActivo > 0){
+           int danoReducido = Math.max(dano - escudoActivo, 0);// Math.max evita daño negativo
            escudoActivo = 0;
            this.PV -= danoReducido;
-           System.out.println(nombre + " ha recibido " + danoReducido + " tras la activación de su escudo " + PV);
+           System.out.println(nombre + " ha recibido " + danoReducido + " tras la activación de su escudo. PV: " + PV);
         }else{
             this.PV -= dano; // Resta el daño directamente a los puntos de vida
             System.out.println(nombre + " ha recibido " + dano + " de daño. PV restantes: " + PV);
         }
-        if (this.PV < 0) this.PV = 0; 
+        if (this.PV < 0) this.PV = 0;
     }
     //Método de aumento de ataque 
     public void aplicarAumentoAtaque(int valor){
@@ -70,6 +82,27 @@ public class Combatientes{
 
     public boolean estaVivo() {
     return PV > 0;
+    }
+    public void aplicarVeneno(int danoPorTurno, int turnos){
+        this.danoVenenoPorTurno = Math.max(this.danoVenenoPorTurno, Math.max(0, danoPorTurno));
+        this.turnosVeneno = Math.max(this.turnosVeneno, Math.max(0, turnos));
+        System.out.println(nombre + " ha sido envenenado (" + danoPorTurno + " por turno, " + turnos + " turnos).");
+    }
+    public void avanzarEstadosDeTurno(){
+        if (turnosVeneno > 0) {
+            recibirDano(danoVenenoPorTurno);
+            turnosVeneno--;
+            if (turnosVeneno == 0) {
+                danoVenenoPorTurno = 0;
+                System.out.println(nombre + " ya no está envenenado.");
+            }
+        }
+        if (turnosInhabilitado > 0) {
+            turnosInhabilitado--;
+            if (turnosInhabilitado == 0) {
+                System.out.println(nombre + " ya no está inhabilitado.");
+            }
+        }
     }
     // Muestra el estado actual del combatiente
     @Override

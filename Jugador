@@ -28,7 +28,7 @@ public class Jugador extends Combatientes {
 
     //Permite que se use un ítem del inventario
     public void usarItem(String nombreItem, Combatientes objetivo){
-        for(Items item : inventario){
+        for(Items item : new ArrayList<>(inventario)){ 
             if(item.getNombre().equalsIgnoreCase(nombreItem)){
                 item.usar(objetivo);
                 inventario.remove(item);
@@ -38,13 +38,12 @@ public class Jugador extends Combatientes {
         System.out.println("Item no encontrado en el inventario.");
     }
     public void atacar(Enemigos enemigo) { 
-    enemigo.recibirDano(getPA());
-    System.out.println(getNombre() + " ha atacado a " + enemigo.getNombre() + " causando " + getPA() + " puntos de daño.");
-    
-    if(!enemigo.estaVivo()) { 
-        System.out.println(enemigo.getNombre() + " ha sido derrotado.");
+        enemigo.recibirDano(getPA());
+        System.out.println(getNombre() + " ha atacado a " + enemigo.getNombre() + " causando " + getPA() + " puntos de daño.");
+        if(!enemigo.estaVivo()) { 
+            System.out.println(enemigo.getNombre() + " ha sido derrotado.");
+        }
     }
-}
 
 
     public void mostrarInventario(){

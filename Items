@@ -33,12 +33,12 @@ public class Items{
                 objetivo.activarEscudo(valor);
                 System.out.println(objetivo.getNombre() + " ha aumentado su defensa en " + valor + " puntos.");
                 break;
-            case "turnoExtra":
+            case "turnoextra": 
                 objetivo.otorgarTurnoExtra();
                 System.out.println(objetivo.getNombre() + " ha ganado un turno extra.");
                 break;
             default:
-                System.out.println("Efecto desconocido.");
+                System.out.println("Efecto desconocido: " + efecto);
         }
     }
     // Método toString para representar el objeto como una cadena

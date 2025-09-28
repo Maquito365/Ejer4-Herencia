@@ -1,21 +1,26 @@
 import java.util.ArrayList;
+
 public class MainEjer4{
     public static void main(String[] args) {
         //Crear jugadores
         Jugador guerrero = new Jugador("Guerrero", "Guerrero");
-        Jugador explorador = new Jugador("Explorador", "Explorador");
+        Jugador explorador = new Jugador("Explorador", "Explorador"); // (no entra en la batalla actual)
+
         //Crear enemigos
         ArrayList<Enemigos> enemigos = new ArrayList<>();
 
-        HabilidadEspecial atrapar = new HabilidadEspecial("Atrapar", "inhabilitar", 0, 1); // Habilidad especial para el enemigo
-        HabilidadEspecial envenenar = new HabilidadEspecial("Envenenar", "envenenar", 15, 3); 
-        enemigos.add(new Enemigos("Rerir (normal)", "Fuego", atrapar, null));//Asigna habilidad especial al enemigo
-        enemigos.add(new Enemigos("Rerir (Jefe)", "Fuego", atrapar, envenenar));
+        HabilidadEspecial atrapar   = new HabilidadEspecial("Atrapar", "inhabilitar", 0, 1);
+        HabilidadEspecial envenenar = new HabilidadEspecial("Envenenar", "envenenar", 15, 3);
 
-        HabilidadEspecial aumentarAtaque = new HabilidadEspecial("Aumentar Ataque", "aumentarataque", 10, 0);
-        HabilidadEspecial danarMultiple = new HabilidadEspecial("Dañar Múltiples", "dañarMultiple", 20, 0);
+        enemigos.add(new Enemigos("Rerir (normal)", "Fuego", atrapar, null));
+        enemigos.add(new Enemigos("Rerir (Jefe)",   "Fuego", atrapar, envenenar));
+
+        HabilidadEspecial aumentarAtaque = new HabilidadEspecial("Aumentar Ataque", "aumentoATQ", 10, 0);
+
+        HabilidadEspecial danarMultiple   = new HabilidadEspecial("Dañar Múltiples", "dañarMultiple", 20, 0);
+
         enemigos.add(new Enemigos("Surtalogi (normal)", "Cuantico", aumentarAtaque, null));
-        enemigos.add(new Enemigos("Surtalogi (Jefe)", "Cuántico", aumentarAtaque, danarMultiple));
+        enemigos.add(new Enemigos("Surtalogi (Jefe)",   "Cuántico", aumentarAtaque, danarMultiple));
 
         //Muestra inventarios de los jugadores
         System.out.println("Inventario del Guerrero: ");
@@ -26,9 +31,7 @@ public class MainEjer4{
         System.out.println("\nEnemigos en la batalla");
         for (Enemigos enemigo : enemigos){
             System.out.println("- " + enemigo.getNombre() + " (Tipo: " + enemigo.getTipo() + ")");
-
         }
-        //Iniciar batalla
         Batalla batalla = new Batalla(guerrero, enemigos);
         batalla.iniciarBatalla();
     } 

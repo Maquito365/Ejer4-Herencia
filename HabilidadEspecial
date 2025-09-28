@@ -6,7 +6,7 @@ public class HabilidadEspecial{
 
     public HabilidadEspecial(String nombre, String efecto, int valor, int duracion){
         this.nombre = nombre;
-        this.efecto = efecto;
+        this.efecto = normalizar(efecto);
         this.valor = valor;
         this.duracion = duracion;
     }
@@ -23,34 +23,47 @@ public class HabilidadEspecial{
     public int getDuracion() {
         return duracion;
     }
+    //normalización para que "Aumentar Ataque", "aumentoATQ", "aumentarataque" funcionen igual
+    private static String normalizar(String s){
+        String t = s == null ? "" : s.trim().toLowerCase();
+        t = Normalizer.normalize(t, Normalizer.Form.NFD).replaceAll("\\p{M}", ""); // quita acentos
+        t = t.replaceAll("\\s+", ""); // quita espacios
+        return t;
+    }
     //Método de los enemigos para aplicar efectos a los jugadores
     public void aplicarHabilidad(Combatientes objetivo){
-        switch(efecto.toLowerCase()){
+        switch(efecto){
             case "envenenar":
-                objetivo.recibirDano(valor);
-                System.out.println(objetivo.getNombre() + " ha sido envenenado y recibe " + valor + " de daño.");
+                objetivo.aplicarVeneno(valor, duracion);
                 break;
+
             case "inhabilitar":
-                objetivo.setInhabilitado(true);
-                System.out.println(objetivo.getNombre() + " ha sido inhabilitado por " + duracion + " turnos.");
+                objetivo.setInhabilitadoPorTurnos(duracion);
+                System.out.println(objetivo.getNombre() + " ha sido inhabilitado por " + duracion + " turno(s).");
                 break;
+
             case "aumentoatq":
+            case "aumentarataque": // alias aceptado
                 objetivo.aplicarAumentoAtaque(valor);
-                System.out.println(objetivo.getNombre() + " ha aumentado su ataque en " + valor + " puntos.");
                 break;
+
+            case "escudo":
+                objetivo.activarEscudo(valor);
+                break;
+
             default:
-                System.out.println("Habilidad no existente");
+                System.out.println("Habilidad no existente (" + efecto + ")");
         }   
     }
     //Otro tipo de habilidad para aplicar a múltiples objetivos
     public void aplicarHabilidadMultiple(Combatientes [] objetivos){
-        if(efecto.equalsIgnoreCase("dañarMultiple")){
+        if(efecto.equals("danarmultiple")){
             for(Combatientes objetivo : objetivos){
-                objetivo.recibirDano(valor);
-                System.out.println(objetivo.getNombre() + " recibe " + valor + " de daño.");
+                objetivo.recibirDano(valor); 
+                System.out.println(objetivo.getNombre() + " recibe " + valor + " de daño múltiple.");
             }
         } else {
-            System.out.println("Esta habilidad no es de daño múltiple");
+            System.out.println("Esta habilidad no es de daño múltiple (" + efecto + ")");
         }
     }
     // Método toString para representar el objeto como una cadena

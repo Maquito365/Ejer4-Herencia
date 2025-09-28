@@ -24,6 +24,16 @@ public class Enemigos extends Combatientes{
         habilidadJefe.aplicarHabilidadMultiple(objetivos);
         }
     }
+    //método de acción con probabilidad de usar la habilidad de jefe
+    public void actuar(Combatientes objetivoPrincipal){
+        if (estaVivo()){
+            if (habilidadJefe != null && Math.random() < 0.35) { // 35% de usar habilidad de jefe
+                usarHabilidadJefe(new Combatientes[]{objetivoPrincipal});
+            } else {
+                usarHabilidadEspecial(objetivoPrincipal);
+            }
+        }
+    }
     public String getTipo() {
         return tipo;
     }
