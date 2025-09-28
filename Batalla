@@ -39,7 +39,8 @@ public class Batalla{
                     case 2:
                         jugador.mostrarInventario();
                         System.out.print("Elige un item para usar: ");
-                        String item = scanner.next();
+                        scanner.nextLine();
+                        String item = scanner.nextLine();
                         jugador.usarItem(item,jugador);//Usa el item elegido
                         break;
                     case 3:
@@ -56,12 +57,17 @@ public class Batalla{
                     enemigo.usarHabilidadEspecial(jugador);//El enemigo usa su habilidad especial si está vivo
                 }
             }
+            System.out.println("Presiona ENTER para continuar...");
+            scanner.nextLine(); 
+            scanner.nextLine();
 
             System.out.println("\nEstado actual:");
             System.out.println(jugador.getNombre() + " (PV: " + jugador.getPV() + ")");
             for(Enemigos enemigo : enemigos){
-                System.out.println(enemigo.getNombre() + " (PV: " + enemigo.getPV() + ")");
+                if(enemigo.estaVivo())
+                    System.out.println(enemigo.getNombre() + " (PV: " + enemigo.getPV() + ")");
             }
+
 
         }
         if(jugador.estaVivo()){
