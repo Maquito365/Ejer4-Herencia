@@ -1,4 +1,4 @@
-public Class Combatientes{
+public class Combatientes{
     private String nombre;
     private int PV;
     private int PA;
