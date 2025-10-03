@@ -1,5 +1,4 @@
 import java.text.Normalizer;
-//Hasta ahi llegue
 public class HabilidadEspecial{
     private String nombre;
     private String efecto;
